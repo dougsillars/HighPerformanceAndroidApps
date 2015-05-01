@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Is it a goat?</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="goatCheckboxString">Goat?</string>
+    <string name="TimeToLoad">Time to Load List (ms): </string>
+
+    <string name="slowestXml">Slow Xml</string>
+    <string name="overdrawXml">Remove Overdraw</string>
+    <string name="removeLLoverdrawXml">Remove LL+Overdraw</string>
+    <string name="fastXml">Optimized Layout</string>
+    <string name="RLfastXml">More Optimized Layout:RL</string>
+
+    <string name="useFib">Fibonacci Delay</string>
+    <string name="invalidateMain">Invalidate Main View</string>
+    <string name="addObjectsString">Create objects during render</string>
+    <string name="memoryLeakString">Memory leak?</string>
+
+    <string name="fibbofalse">Fibonacci not used</string>
+    <string name="fibbotrue">Fibbonacu used</string>
+    <string name="mainviewInvalidatedfalse">mainView was not invalidated</string>
+    <string name="mainviewInvalidatedtrue">mainView Invalidated</string>
+    <string name="extraObjectsfalse">No Extra objects</string>
+    <string name="extraObjectstrue">lots of extra objects</string>
+    <string name="memoryLeakfalse">No memory leak</string>
+    <string name="memoryLeaktrue">Memory leak</string>
+</resources>

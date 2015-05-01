@@ -1,0 +1,72 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".BALayout" >
+    <item android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+    <group android:id="@+id/xmlChoice"
+            android:checkableBehavior="single">
+
+        <item android:id="@+id/slowest"
+            android:orderInCategory="200"
+            android:onClick="onGroupItemClick"
+            android:title="@string/slowestXml"
+            android:checked="true"
+
+            />
+        <item android:id="@+id/removeOverDraw"
+            android:orderInCategory="220"
+            android:onClick="onGroupItemClick"
+            android:title="@string/overdrawXml"
+
+            />
+        <item android:id="@+id/RemoveLLremoveOverDraw"
+            android:orderInCategory="220"
+            android:onClick="onGroupItemClick"
+            android:title="@string/removeLLoverdrawXml"
+
+            />
+        <item android:id="@+id/fast"
+            android:orderInCategory="300"
+            android:onClick="onGroupItemClick"
+            android:title="@string/fastXml"
+
+            />
+        <item android:id="@+id/fastRLinrow"
+            android:orderInCategory="310"
+            android:onClick="onGroupItemClick"
+            android:title="@string/RLfastXml"
+
+            />
+    </group>
+
+    <item android:id="@+id/useFib"
+        android:title="@string/useFib"
+        android:onClick="onGroupItemClick"
+        android:orderInCategory="400"
+        android:checkable="true"
+        />
+    <item android:id="@+id/invalidateMain"
+        android:title="@string/invalidateMain"
+        android:onClick="onGroupItemClick"
+        android:orderInCategory="500"
+        android:checkable="true"
+
+        />
+    <item android:id="@+id/addObjects"
+        android:title="@string/addObjectsString"
+        android:onClick="onGroupItemClick"
+        android:orderInCategory="600"
+        android:checkable="true"
+        android:checked="false"
+        />
+    <item android:id="@+id/memoryLeak"
+        android:title="@string/memoryLeakString"
+        android:onClick="onGroupItemClick"
+        android:orderInCategory="700"
+        android:checkable="true"
+        android:checked="false"
+        />
+
+</menu>

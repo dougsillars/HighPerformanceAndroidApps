@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+                <ImageView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:id="@+id/imageView"
+                    android:backgroundTintMode="add"/>
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/imageView"
+
+                        android:gravity="center"
+
+                        android:id="@+id/textView"
+                        />
+                    <CheckBox
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/imageView"
+                        android:layout_below="@id/textView"
+                        android:gravity="center"
+                        android:text="@string/goatCheckboxString"
+                        android:id="@+id/checkBox"
+                        />
+
+
+
+</RelativeLayout>

@@ -1,0 +1,62 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion "21.0.2"
+
+    defaultConfig {
+        applicationId "com.sillars.imagescroll"
+        minSdkVersion 14
+        targetSdkVersion 21
+        versionCode 2
+        versionName "1.1"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.google.android.gms:play-services:6.5.87'
+    compile('com.crashlytics.sdk.android:crashlytics:2.2.2@aar') {
+        transitive = true;
+    }
+
+}
+buildscript {
+
+    repositories {
+        mavenCentral()
+        maven { url 'https://maven.fabric.io/public'}
+
+
+    }
+
+    dependencies {
+        classpath "com.newrelic.agent.android:agent-gradle-plugin:4.+"
+        classpath 'io.fabric.tools:gradle:1.+'
+
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://maven.fabric.io/public' }
+
+}
+
+apply plugin: 'android'
+apply plugin: 'io.fabric'
+apply plugin: 'newrelic'
+
+
+dependencies {
+    compile 'com.newrelic.agent.android:android-agent:4.+'
+    compile 'com.crittercism:crittercism-android-agent:+'
+
+
+}
