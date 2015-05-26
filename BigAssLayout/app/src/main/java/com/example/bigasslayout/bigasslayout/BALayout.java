@@ -1,6 +1,8 @@
 package com.example.bigasslayout.bigasslayout;
 
 import android.app.Activity;
+import android.app.Application;
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,9 +17,32 @@ import android.widget.Toast;
 import android.view.Display;
 import android.view.WindowManager;
 
+
+import com.squareup.leakcanary.RefWatcher;
+
 import java.util.ArrayList;
 
+
+
+
+
+class Iceberg{
+    static ArrayList<byte[]> iceSheet = new ArrayList<byte[]>();
+    void sink(){
+        byte[] mostlyUnderwater;
+        mostlyUnderwater = new byte[2048 * 1024];
+        iceSheet.add(mostlyUnderwater);//icesheet should grow by 2MB every rotation
+        Log.i("iceberg", "Captain, I think we might have hit something.");
+    }
+}
+class CancelTheWatch{
+    static Iceberg iceberg;
+}
+
+
 public class BALayout extends Activity {
+
+
 
 
     //views
@@ -67,20 +92,6 @@ public class BALayout extends Activity {
     static final String STATE_GoatPix = "Goat Pix";
     static final String STATE_GoatTF = "is it a goat";
 
-
-    //This is creating a memory leak
-    static ArrayList<byte[]> iceSheet = new ArrayList<byte[]>();
-    static Iceberg iceberg = null;
-    static byte[] mostlyUnderwater;
-    class Iceberg{
-        void sink(){
-            mostlyUnderwater = new byte[2048 * 1024];
-            iceSheet.add(mostlyUnderwater);//icesheet should grow by 2MB every rotation
-            Log.i("iceberg", "Captain, I think we might have hit something.");
-        }
-    }
-
-
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         // Save the user's current game state
@@ -117,14 +128,21 @@ public class BALayout extends Activity {
             xmlUsed = savedInstanceState.getString(STATE_XML);
             useFibonacci = savedInstanceState.getBoolean(STATE_fibb);
             invaliatdeMainView = savedInstanceState.getBoolean(STATE_ivValdateViews);
+            //change text if false
+            if(!invaliatdeMainView){mainViewStat = getResources().getString(R.string.mainviewInvalidatedfalse);}
             lotsOfObjects = savedInstanceState.getBoolean(STATE_AddedObjects);
             memoryLeakTF = savedInstanceState.getBoolean(STATE_Leak);
-         if (lotsOfObjects == false) {
+            //if true - change text
+            if(memoryLeakTF){ MemoryLeakText=getResources().getString(R.string.memoryLeaktrue);}
+
+
+            if (!lotsOfObjects) {
              //load from saved state
              goatNames = savedInstanceState.getStringArray(STATE_GoatPicName);
              goatPix = savedInstanceState.getIntArray(STATE_GoatPix);
              goatTrue = savedInstanceState.getBooleanArray(STATE_GoatTF);
          } else {
+             didIAddObjects = getResources().getString(R.string.extraObjectstrue);
              //more stuff! Bwa ha ha ha
              goatNames = new String[]{
                      "http://bit.ly/1JOpkQo",
@@ -229,10 +247,32 @@ public class BALayout extends Activity {
 
             };
         }
-        if (memoryLeakTF ==true) {
+        if (memoryLeakTF) {
             //calling the memory leak class
-            iceberg = new Iceberg();
-            iceberg.sink();
+
+
+            CancelTheWatch NoNeed = new CancelTheWatch();
+           // Ocean northAtlantic = new Ocean();
+            Iceberg theBigOne = new Iceberg();
+           // northAtlantic.iceberg = theBigOne;
+            //NoNeed.Atlantic = northAtlantic;
+            NoNeed.iceberg = theBigOne;
+
+            //leak canary watching the variables
+            RefWatcher wishTheyHadAWatch = AmiAGoat.getRefWatcher(this);
+            wishTheyHadAWatch.watch(NoNeed);
+           // RefWatcher oceanWatch = AmiAGoat.getRefWatcher(this);
+            //oceanWatch.watch(northAtlantic);
+            RefWatcher icebergWatch = AmiAGoat.getRefWatcher(this);
+            icebergWatch.watch(theBigOne);
+
+            //you can hit an iceberg and still survive.
+            //to sink, we need to create an out of memory error.
+            //this adds a 2MB byte[] to an array list.
+            //on each screen rotation, the arraylist grows by 2MB
+            //eventually - you'll run out of RAM.
+            //50MB on a Samsung Note II
+            NoNeed.iceberg.sink();
         }
         //draw the views. This will vary depending on the settings
         createTheViews(xmlUsed, useFibonacci);
