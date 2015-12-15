@@ -1,9 +1,6 @@
 package com.example.bigasslayout.bigasslayout;
 
 import android.app.Activity;
-import android.app.Application;
-import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -14,45 +11,49 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.view.Display;
-import android.view.WindowManager;
-
 
 import com.squareup.leakcanary.RefWatcher;
 
 import java.util.ArrayList;
 
 
-
-
-
-class Iceberg{
+class Iceberg {
     static ArrayList<byte[]> iceSheet = new ArrayList<byte[]>();
-    void sink(){
+
+    void sink() {
         byte[] mostlyUnderwater;
         mostlyUnderwater = new byte[2048 * 1024];
         iceSheet.add(mostlyUnderwater);//icesheet should grow by 2MB every rotation
         Log.i("iceberg", "Captain, I think we might have hit something.");
     }
 }
-class CancelTheWatch{
+
+class CancelTheWatch {
     static Iceberg iceberg;
 }
 
-
 public class BALayout extends Activity {
-
-
-
-
+    //save display variables for screen rotation
+    static final String STATE_XML = "XMl file used";
+    static final String STATE_fibb = "Fib used?";
+    static final String STATE_ivValdateViews = "Views Invalidated?";
+    static final String STATE_AddedObjects = "ADded Extra Objects?";
+    static final String STATE_Leak = "Leaky?";
+    static final String STATE_GoatPicName = "goat pic text";
+    static final String STATE_GoatPix = "Goat Pix";
+    static final String STATE_GoatTF = "is it a goat";
+    static String[] goatNames;
+    static int[] goatPix;
+    static boolean[] goatTrue;
     //views
     View mainView;
     GoatList adapter;
     TextView textTotal;
+
+    //variables
     RadioButton xmlChoice;
     //options menu id
     int id;
-
     //parameters for views
     //default use slowest XML
     String xmlUsed;
@@ -67,30 +68,11 @@ public class BALayout extends Activity {
     String didIAddObjects;
     boolean memoryLeakTF = false;
     String MemoryLeakText;
-
-
-    //variables
-
-    static String[] goatNames;
-    static int[] goatPix;
-    static boolean[] goatTrue;
-
-
     //timer stuff
     long starttime;
     long finnish;
     long totalTime;
     String timeString = "foo";
-
-    //save display variables for screen rotation
-    static final String STATE_XML = "XMl file used";
-    static final String STATE_fibb = "Fib used?";
-    static final String STATE_ivValdateViews = "Views Invalidated?";
-    static final String STATE_AddedObjects = "ADded Extra Objects?";
-    static final String STATE_Leak = "Leaky?";
-    static final String STATE_GoatPicName = "goat pic text";
-    static final String STATE_GoatPix = "Goat Pix";
-    static final String STATE_GoatTF = "is it a goat";
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
@@ -120,7 +102,6 @@ public class BALayout extends Activity {
         MemoryLeakText = getResources().getString(R.string.memoryLeakfalse);
 
 
-
         //load in the data from previous view - or use default data
         // Check whether we're recreating a previously destroyed instance
         if (savedInstanceState != null) {
@@ -129,73 +110,76 @@ public class BALayout extends Activity {
             useFibonacci = savedInstanceState.getBoolean(STATE_fibb);
             invaliatdeMainView = savedInstanceState.getBoolean(STATE_ivValdateViews);
             //change text if false
-            if(!invaliatdeMainView){mainViewStat = getResources().getString(R.string.mainviewInvalidatedfalse);}
+            if (!invaliatdeMainView) {
+                mainViewStat = getResources().getString(R.string.mainviewInvalidatedfalse);
+            }
             lotsOfObjects = savedInstanceState.getBoolean(STATE_AddedObjects);
             memoryLeakTF = savedInstanceState.getBoolean(STATE_Leak);
             //if true - change text
-            if(memoryLeakTF){ MemoryLeakText=getResources().getString(R.string.memoryLeaktrue);}
+            if (memoryLeakTF) {
+                MemoryLeakText = getResources().getString(R.string.memoryLeaktrue);
+            }
 
 
             if (!lotsOfObjects) {
-             //load from saved state
-             goatNames = savedInstanceState.getStringArray(STATE_GoatPicName);
-             goatPix = savedInstanceState.getIntArray(STATE_GoatPix);
-             goatTrue = savedInstanceState.getBooleanArray(STATE_GoatTF);
-         } else {
-             didIAddObjects = getResources().getString(R.string.extraObjectstrue);
-             //more stuff! Bwa ha ha ha
-             goatNames = new String[]{
-                     "http://bit.ly/1JOpkQo",
-                     "http://bit.ly/1ADUYfk",
-                     "http://bit.ly/1t701Eh",
-                     "http://bit.ly/1xdCS4D",
-                     "http://bit.ly/1B1UVb8",
-                     "rooster",
-                     "Ani the Pygora",
-                     "Llama",
-                     "Alden the Pygora",
-                     "http://bit.ly/16NeqeA",
-                     "http://bit.ly/1zfqTym",
-                     "http://bit.ly/1AWSOpf",
-                     "http://bit.ly/1sUlPNI"
+                //load from saved state
+                goatNames = savedInstanceState.getStringArray(STATE_GoatPicName);
+                goatPix = savedInstanceState.getIntArray(STATE_GoatPix);
+                goatTrue = savedInstanceState.getBooleanArray(STATE_GoatTF);
+            } else {
+                didIAddObjects = getResources().getString(R.string.extraObjectstrue);
+                //more stuff! Bwa ha ha ha
+                goatNames = new String[]{
+                        "http://bit.ly/1JOpkQo",
+                        "http://bit.ly/1ADUYfk",
+                        "http://bit.ly/1t701Eh",
+                        "http://bit.ly/1xdCS4D",
+                        "http://bit.ly/1B1UVb8",
+                        "rooster",
+                        "Ani the Pygora",
+                        "Llama",
+                        "Alden the Pygora",
+                        "http://bit.ly/16NeqeA",
+                        "http://bit.ly/1zfqTym",
+                        "http://bit.ly/1AWSOpf",
+                        "http://bit.ly/1sUlPNI"
 
-             };
-             goatPix = new int[]{
-                     R.drawable.babygoatsjan2007crop,
-                     R.drawable.mountaingoat,
-                     R.drawable.goatwithunusualhorns,
-                     R.drawable.hausziege04,
-                     R.drawable.feralgoat,
-                     R.drawable.rooster,
-                     R.drawable.ani,
-                     R.drawable.llama,
-                     R.drawable.alden,
-                     R.drawable.goatracing,
-                     R.drawable.goatinacar,
-                     R.drawable.boogoat,
-                     R.drawable.donkey
+                };
+                goatPix = new int[]{
+                        R.drawable.babygoatsjan2007crop,
+                        R.drawable.mountaingoat,
+                        R.drawable.goatwithunusualhorns,
+                        R.drawable.hausziege04,
+                        R.drawable.feralgoat,
+                        R.drawable.rooster,
+                        R.drawable.ani,
+                        R.drawable.llama,
+                        R.drawable.alden,
+                        R.drawable.goatracing,
+                        R.drawable.goatinacar,
+                        R.drawable.boogoat,
+                        R.drawable.donkey
 
-             };
+                };
 
-             goatTrue = new boolean[]{
-                     true,
-                     true,
-                     true,
-                     true,
-                     true,
-                     false,
-                     true,
-                     false,
-                     true,
-                     true,
-                     true,
-                     true,
-                     false
+                goatTrue = new boolean[]{
+                        true,
+                        true,
+                        true,
+                        true,
+                        true,
+                        false,
+                        true,
+                        false,
+                        true,
+                        true,
+                        true,
+                        true,
+                        false
 
-             };
-         }
-        }
-        else {
+                };
+            }
+        } else {
             //initialize
             goatNames = new String[]{
                     "http://bit.ly/1JOpkQo",
@@ -227,7 +211,6 @@ public class BALayout extends Activity {
                     R.drawable.goatinacar,
                     R.drawable.boogoat,
                     R.drawable.donkey
-
             };
 
             goatTrue = new boolean[]{
@@ -252,16 +235,16 @@ public class BALayout extends Activity {
 
 
             CancelTheWatch NoNeed = new CancelTheWatch();
-           // Ocean northAtlantic = new Ocean();
+            // Ocean northAtlantic = new Ocean();
             Iceberg theBigOne = new Iceberg();
-           // northAtlantic.iceberg = theBigOne;
+            // northAtlantic.iceberg = theBigOne;
             //NoNeed.Atlantic = northAtlantic;
             NoNeed.iceberg = theBigOne;
 
             //leak canary watching the variables
             RefWatcher wishTheyHadAWatch = AmiAGoat.getRefWatcher(this);
             wishTheyHadAWatch.watch(NoNeed);
-           // RefWatcher oceanWatch = AmiAGoat.getRefWatcher(this);
+            // RefWatcher oceanWatch = AmiAGoat.getRefWatcher(this);
             //oceanWatch.watch(northAtlantic);
             RefWatcher icebergWatch = AmiAGoat.getRefWatcher(this);
             icebergWatch.watch(theBigOne);
@@ -278,13 +261,14 @@ public class BALayout extends Activity {
         createTheViews(xmlUsed, useFibonacci);
 
     }
+
     @Override
     public void onDestroy() {
         //only destroy stuff if expictly say so :)
         if (invaliatdeMainView == true) {
             mainView = null;
             textTotal = null;
-           adapter = null;
+            adapter = null;
             goatPix = null;
             goatNames = null;
             goatTrue = null;
@@ -333,11 +317,11 @@ public class BALayout extends Activity {
             menu.getItem(7).setChecked(false);
         }//set false
         if (lotsOfObjects == true) {
-        menu.getItem(8).setChecked(true);//set create obj on
+            menu.getItem(8).setChecked(true);//set create obj on
         } else {
             menu.getItem(8).setChecked(false);
         }//set false
-        if (memoryLeakTF == true) {
+        if (memoryLeakTF) {
             menu.getItem(9).setChecked(true);//set create obj on
         } else {
             menu.getItem(9).setChecked(false);
@@ -434,7 +418,7 @@ public class BALayout extends Activity {
         }
 
         if (invaliatdeMainView == true) {
-           mainView.invalidate();
+            mainView.invalidate();
             adapter.notifyDataSetInvalidated();
             if (adapter.rowCheck != null) {
                 adapter.rowCheck.invalidate();
@@ -504,7 +488,7 @@ public class BALayout extends Activity {
 
 
         textTotal.append(timeString);
-        textTotal.append("\n" + xmlUsed + ", " + useFib + ", " + mainViewStat + ", " + didIAddObjects+", " + MemoryLeakText);
+        textTotal.append("\n" + xmlUsed + ", " + useFib + ", " + mainViewStat + ", " + didIAddObjects + ", " + MemoryLeakText);
     }
 
 

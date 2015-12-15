@@ -4,8 +4,7 @@ package com.example.bigasslayout.bigasslayout;
  * Created by demo on 12/1/14.
  */
 public class Images {
-
-     static final String[] urls = {
+    static final String[] urls = {
             "http://i661.photobucket.com/albums/uu340/dougtest/001-20140412_124543_000_zpsee3872d4.jpg",
             "http://i661.photobucket.com/albums/uu340/dougtest/002-20140412_124543_001_zpsd2637741.jpg",
             "http://i661.photobucket.com/albums/uu340/dougtest/005-20140412_124543_004_zpsff83e911.jpg",
@@ -106,7 +105,5 @@ public class Images {
             "http://i661.photobucket.com/albums/uu340/dougtest/101-20140506_181513_026_zpsb87051ce.jpg",
             "http://i661.photobucket.com/albums/uu340/dougtest/102-20140506_181513_027_zps339293a6.jpg",
             "http://i661.photobucket.com/albums/uu340/dougtest/103-20140506_181513_028_zps0fb73c35.jpg",
-
-
     };
 }
